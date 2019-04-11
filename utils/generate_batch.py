@@ -11,7 +11,7 @@ for file in files:
 	im = cv.imread(file)
 
 fp = open('../data/iids_train.txt')
-lines = fp.read().splitlines() # Create a list containing all lines
+lines = fp.read().splitlines() # Create a list containing allt lines
 fp.close()
 
 im = cv.imread('../data/train/' + str(lines[0]) + '.jpg')
