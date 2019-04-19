@@ -3,25 +3,36 @@ from utils.shrinkage import shrink
 
 # Implements the coordinate descent algorithm for the lasso optimization
 def coordinate_descent(X, Wd, alpha):
-  [n, m] = Wd.shape
-  S = np.eye(m) - np.matmul(np.transpose(Wd), Wd)
-  # Initialize 
-  B = np.matmul(np.transpose(Wd), X)
-  Z = np.zeros_like(B)
-  [m, n] = B.shape
+	
+	##################################################################                                           
+	# Wd ==> The dictionary matrix                                   #
+	# X ==> The vector for which we want to recover the sparse code  #
+	# alpha ==> Penalty on the L1 term in the opitmization           #                                                    
+	################################################################## 
+	
+	# Initialize S = I - Wd^T * Wd
+	[n, m] = Wd.shape
+	S = np.eye(m) - np.matmul(np.transpose(Wd), Wd)
+	# Initialize B = Wd^T * X
+	B = np.matmul(np.transpose(Wd), X)
+	# Vector to store the sparse code output
+	Z = np.zeros_like(B)
 
-  # Iterating until the algorithm converges
-  num_iters = 0
-  while(True):
-      Z_bar = shrink(B, alpha)
-      k = np.argmax(np.abs(Z-Z_bar))
-      B = B + np.multiply(S[:, k].reshape(10,1), (Z_bar[k] - Z[k]))
-      Z[k] = Z_bar[k]
-      num_iters += 1
-      
-      if np.sum(np.abs(Z - Z_bar)) < 1e-5:
-          break
-          
-  Z = shrink(B, alpha)
-  print('The algorithm converges in {} iterations'.format(num_iters))
-  return Z
+	# Store the number of times our algorithm iterates for
+	num_iters = 0
+
+	# Iterating until the algorithm converges
+	while(True):
+			Z_bar = shrink(B, alpha)
+			k = np.argmax(np.abs(Z-Z_bar))
+			B = B + np.multiply(S[:, k].reshape(10,1), (Z_bar[k] - Z[k]))
+			Z[k] = Z_bar[k]
+			num_iters += 1
+			
+			# Check if the algorithm is converging
+			if np.sum(np.abs(Z - Z_bar)) < 1e-5:
+					break
+					
+	# The optimal sparse code
+	Z = shrink(B, alpha)
+	return Z
