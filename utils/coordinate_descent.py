@@ -6,7 +6,8 @@ def coordinate_descent(X, Wd, alpha):
 	
 	##################################################################                                           
 	# Wd ==> The dictionary matrix                                   #
-	# X ==> The vector for which we want to recover the sparse code  #
+	# X ==> The matrix with vectors as its columns for which we want #
+	#       to recover the sparse code                               #
 	# alpha ==> Penalty on the L1 term in the opitmization           #                                                    
 	################################################################## 
 	
@@ -24,15 +25,23 @@ def coordinate_descent(X, Wd, alpha):
 	# Iterating until the algorithm converges
 	while(True):
 			Z_bar = shrink(B, alpha)
-			k = np.argmax(np.abs(Z-Z_bar))
-			B = B + np.multiply(S[:, k].reshape(10,1), (Z_bar[k] - Z[k]))
-			Z[k] = Z_bar[k]
+
+			# Index of max element of each column
+			k = np.argmax(np.abs(Z-Z_bar), axis=0)
+			# Used to index the columns of the matrix
+			index = np.arange(k.shape[0])
+
+			Z_diff = Z_bar[k, index] - Z[k, index]
+			B = B + (S[:, k] * Z_diff)
+			Z[k, index] = Z_bar[k, index]
 			num_iters += 1
-			
+
 			# Check if the algorithm is converging
-			if np.sum(np.abs(Z - Z_bar)) < 1e-5:
-					break
-					
+			if np.sum(np.abs(Z - Z_bar)) < 1e-8:
+				break
+			elif num_iters > 1000:
+				break
+
 	# The optimal sparse code
 	Z = shrink(B, alpha)
 	return Z
