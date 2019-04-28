@@ -1,5 +1,5 @@
 import matplotlib
-%matplotlib inline
+# %matplotlib inline
 import matplotlib.pyplot as plt
 from utils.coordinate_descent import coordinate_descent
 from utils.shrinkage import shrink
