@@ -37,10 +37,10 @@ def coordinate_descent(X, Wd, alpha):
 			num_iters += 1
 
 			# Check if the algorithm is converging
-			if np.sum(np.abs(Z - Z_bar)) < 1e-8:
+			if np.mean(np.abs(Z - Z_bar)) < 1e-3:
 				break
-			elif num_iters > 1000:
-				break
+			# elif num_iters > 1000:
+			# 	break
 
 	# The optimal sparse code
 	Z = shrink(B, alpha)

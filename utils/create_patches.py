@@ -12,7 +12,7 @@ def create_patches(path, lines, num_patches):
 	# path = the path of where the data is stored                             #
 	# lines = a list that contains all the file names                         #
 	# num_patches = the number of patches will be generated from each image   #
-    #                                                                         #
+	#                                                                         #
 	# output = A numpy array of dim [10*10 X num_images*num_patches]          #
 	###########################################################################
 
