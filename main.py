@@ -34,3 +34,8 @@ Wd, loss = learn_dictionary(num_epochs, path, lines, num_patches, alpha, lr, bet
 
 np.savetxt('Wd.txt', Wd)
 np.save('Wd.npy', Wd)
+
+loss_file = open('loss.txt', 'w') # open a file in write mode
+for item in loss:    # iterate over the list items
+   loss_file.write(str(item) + '\n') # write to the file
+loss_file.close()   # close the file 
