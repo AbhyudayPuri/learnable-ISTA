@@ -1,6 +1,5 @@
 from sklearn.feature_extraction import image
 import numpy as np
-import matplotlib.pyplot as plt
 from skimage.color import rgb2gray
 from skimage.io import imread
 

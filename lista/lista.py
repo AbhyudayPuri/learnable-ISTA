@@ -32,4 +32,4 @@ class lista(nn.Module):
 		# Third Pass
 		Z = self.soft_thresh(B + torch.matmul(S, Z))
 
-		retrun Z
+		return Z
