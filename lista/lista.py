@@ -3,6 +3,8 @@ import torch.nn as nn
 import torchvision
 import numpy as np 
 import torch.nn.functional as F
+from torch.autograd import Variable
+
 
 # Defining the network architecture
 class lista(nn.Module):
@@ -13,9 +15,11 @@ class lista(nn.Module):
 		self.n = 100
 		self.m = 400
 
-		self.W = torch.randn(self.m, self.n)
-		self.S = torch.randn(self.m, self.m)
+		self.W = torch.nn.Parameter(torch.randn((self.m, self.n), requires_grad=True))
+		self.S = torch.nn.Parameter(torch.randn((self.m, self.m), requires_grad=True))
 		self.soft_thresh = nn.Softshrink(lambd=0.5)
+
+
 
 	def forward(self, x):
 

@@ -23,6 +23,13 @@ net.train()
 # Choosing the loss function criteria
 criterion = nn.MSELoss()    # This is the l2 Loss Function
 
+print('We here now')
+for p, n in net.named_parameters():
+	print('Where?')
+	print(p, n)
+
+print('wut wut')
+
 # Choosing the optimizer and its hyper-parameters
 optimizer = optim.Adam(net.parameters(), lr=1e-4, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
 
@@ -69,6 +76,7 @@ for epoch in range(num_epochs):
 
 	# Computng the loss
 	loss = criterion(prediction, Z)
+	# loss = (prediction - Z).pow(2).sum()
 
 	# Back Propogation    
 	loss.backward()
