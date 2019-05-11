@@ -24,16 +24,16 @@ class lista(nn.Module):
 	def forward(self, x):
 
 		# Initializing variables
-		B = torch.matmul(W, x)
+		B = torch.matmul(self.W, x)
 		Z = self.soft_thresh(B)
 
 		# First Pass 
-		Z = self.soft_thresh(B + torch.matmul(S, Z))
+		Z = self.soft_thresh(B + torch.matmul(self.S, Z))
 
 		# Second Pass
-		Z = self.soft_thresh(B + torch.matmul(S, Z))
+		Z = self.soft_thresh(B + torch.matmul(self.S, Z))
 
 		# Third Pass
-		Z = self.soft_thresh(B + torch.matmul(S, Z))
+		Z = self.soft_thresh(B + torch.matmul(self.S, Z))
 
 		return Z

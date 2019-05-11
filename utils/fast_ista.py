@@ -4,7 +4,7 @@ from utils.shrinkage import shrink
 def fast_ista(X, A, alpha=0.01):
 
 	# Hyper-Parameters
-	max_iter = 3000
+	max_iter = 1
 
 	# Getting the number of basis vectors in our dictionary
 	m = A.shape[1]
@@ -24,7 +24,7 @@ def fast_ista(X, A, alpha=0.01):
 		theta = alpha / (np.linalg.norm(A, 2) ** 2)
 
 		Z = shrink(V, theta)
-		if i%100 == 0:
-			print(i)
+		# if i%100 == 0:
+			# print(i)
 
 	return Z
