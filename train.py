@@ -23,15 +23,8 @@ net.train()
 # Choosing the loss function criteria
 criterion = nn.MSELoss()    # This is the l2 Loss Function
 
-print('We here now')
-for p, n in net.named_parameters():
-	print('Where?')
-	print(p, n)
-
-print('wut wut')
-
 # Choosing the optimizer and its hyper-parameters
-optimizer = optim.Adam(net.parameters(), lr=1e-4, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
+optimizer = optim.Adam(net.parameters(), lr=1e-3, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
 
 # Hyper-Parameters
 num_epochs = 1000
@@ -99,9 +92,9 @@ for epoch in range(num_epochs):
 		training_loss.append(running_loss)
 
 	# Saving the model
-	torch.save(net, 'Network_1.pth')
+	torch.save(net, './pretrained_models/Network_1.pth')
 
-loss_file = open('loss.txt', 'w') # open a file in write mode
+loss_file = open('./pretrained_models/loss.txt', 'w') # open a file in write mode
 for item in training_loss:    # iterate over the list items
    loss_file.write(str(item) + '\n') # write to the file
 loss_file.close()   # close the file 
