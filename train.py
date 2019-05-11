@@ -46,8 +46,6 @@ Wd = np.load('./Wd.npy')
 
 for epoch in range(num_epochs):
 
-	print(epoch)
-
 	# Zero the parameter gradients
 	optimizer.zero_grad()
 
@@ -56,14 +54,12 @@ for epoch in range(num_epochs):
 
 	# Generate the mini-batch
 	X = create_patches(path, lines, num_patches)
-	print('Batch Generated')
 
 	# Generate the ground truth for these patches
 	Z = fast_ista(X, Wd, alpha)
 
 	X = torch.from_numpy(X).type(torch.FloatTensor)
 	Z = torch.from_numpy(Z).type(torch.FloatTensor)
-	print('Ground Truth Generated')
 
 	# Pushing onto GPU
 	X = X.to(device)
@@ -82,7 +78,7 @@ for epoch in range(num_epochs):
 	# Updating the network parameters
 	optimizer.step()
 
-	print('Epoch Done')
+	print('Epoch {} Done'.format(epoch))
 
 	# Print Loss
 	running_loss += loss.item()
@@ -94,7 +90,7 @@ for epoch in range(num_epochs):
 	# Saving the model
 	torch.save(net, './pretrained_models/Network_1.pth')
 
-loss_file = open('./pretrained_models/loss.txt', 'w') # open a file in write mode
+loss_file = open('./pretrained_models/loss.txt', '+w') # open a file in write mode
 for item in training_loss:    # iterate over the list items
    loss_file.write(str(item) + '\n') # write to the file
 loss_file.close()   # close the file 
