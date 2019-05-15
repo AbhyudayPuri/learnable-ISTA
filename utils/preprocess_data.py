@@ -1,4 +1,4 @@
-from utilts.create_patches import create_patches
+from utils.create_patches import create_patches
 from utils.fast_ista import fast_ista
 
 # Path to where the data is stored 
