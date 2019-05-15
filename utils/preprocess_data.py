@@ -26,11 +26,12 @@ print(Z.shape)
 
 print('Data Created')
 
-for i in range(400):
+for i in range(200):
 	start = time.time()
 	print('Data Chunk {}/400'.format(i+1))
-	Z[:, i*5000 : (i+1)*5000] = fast_ista(X[:, i*5000 : (i+1)*5000], Wd, alpha)
+	Z[:, i*10000 : (i+1)*10000] = fast_ista(X[:, i*10000 : (i+1)*10000], Wd, alpha)
 	end = time.time()
+	np.save('/home/ecbm6040/learnable-ISTA/Z_train.npy', Z)
 	print("Time taken for 1 mini-batch: {}".format(end-start))
 
 print('Labels Created')
