@@ -1,6 +1,7 @@
 from create_patches import create_patches
 from fast_ista import fast_ista
 import numpy as np 
+import time
 
 # Path to where the data is stored 
 path = '/home/ecbm6040/learnable-ISTA/data/train/'
@@ -24,9 +25,12 @@ Z = np.zeros(X.shape)
 
 print('Data Created')
 
-for i in range(20):
-	print('Data Chunk {}/40'.format(i+1))
-	Z[:, i*100000 : (i+1)*100000] = fast_ista(X[:, i*100000 : (i+1)*100000], Wd, alpha)
+for i in range(400):
+	start = time.time()
+	print('Data Chunk {}/400'.format(i+1))
+	Z[:, i*5000 : (i+1)*5000] = fast_ista(X[:, i*5000 : (i+1)*5000], Wd, alpha)
+	end = time.time()
+	print("Time taken for 1 mini-batch: {}".format(end-start))
 
 print('Labels Created')
 
