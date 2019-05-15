@@ -1,5 +1,5 @@
 import numpy as np 
-from utils.shrinkage import shrink
+from shrinkage import shrink
 
 def fast_ista(X, A, alpha=0.01):
 
