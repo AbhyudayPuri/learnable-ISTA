@@ -20,10 +20,10 @@ def fast_ista(X, A, alpha=0.01):
 		Z_aux = Z + (i / (i + 3)) * (Z - Z_prev)
 		Z_prev = Z 
 
-		V = Z_aux - (1 / np.linalg.norm(A, 2) ** 2) * np.matmul(np.transpose(A), np.matmul(A, Z_aux) - X)
+		Z = Z_aux - (1 / np.linalg.norm(A, 2) ** 2) * np.matmul(np.transpose(A), np.matmul(A, Z_aux) - X)
 		theta = alpha / (np.linalg.norm(A, 2) ** 2)
 
-		Z = shrink(V, theta)
+		Z = shrink(Z, theta)
 		if i%100 == 0:
 			print(i)
 
