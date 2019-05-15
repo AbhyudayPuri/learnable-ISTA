@@ -21,7 +21,8 @@ Wd = np.load('/home/ecbm6040/learnable-ISTA/Wd.npy')
 # Create the patches
 X = create_patches(path, lines, num_patches)
 
-Z = np.zeros(X.shape)
+Z = np.zeros(400, X.shape[1])
+print(Z.shape)
 
 print('Data Created')
 
