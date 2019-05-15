@@ -4,7 +4,7 @@ from shrinkage import shrink
 def fast_ista(X, A, alpha=0.01):
 
 	# Hyper-Parameters
-	max_iter = 5000
+	max_iter = 3000
 
 	# Getting the number of basis vectors in our dictionary
 	m = A.shape[1]
