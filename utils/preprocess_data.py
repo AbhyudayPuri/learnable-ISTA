@@ -1,5 +1,5 @@
-from utils.create_patches import create_patches
-from utils.fast_ista import fast_ista
+from create_patches import create_patches
+from fast_ista import fast_ista
 
 # Path to where the data is stored 
 path = '/home/ecbm6040/learnable-ISTA/data/train/'
