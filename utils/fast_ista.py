@@ -17,7 +17,6 @@ def fast_ista(X, A, alpha=0.01):
 
 	# FISTA
 	for i in range(max_iter):
-		print('FISTA iter xxxx')
 		Z_aux = Z + (i / (i + 3)) * (Z - Z_prev)
 		Z_prev = Z 
 

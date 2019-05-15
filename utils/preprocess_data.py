@@ -22,11 +22,8 @@ X = create_patches(path, lines, num_patches)
 
 print('Data Created')
 
-# Z = fast_ista(X, Wd, alpha)
-
-for i in range(8):
-	Z[:, i*25000 : (i+1)*25000] = fast_ista(X[:, i*25000 : (i+1)*25000], Wd, alpha)
-	break
+for i in range(40):
+	Z[:, i*50000 : (i+1)*50000] = fast_ista(X[:, i*50000 : (i+1)*50000], Wd, alpha)
 
 print('Labels Created')
 
