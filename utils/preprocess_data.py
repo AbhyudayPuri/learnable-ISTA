@@ -23,6 +23,7 @@ X = create_patches(path, lines, num_patches)
 print('Data Created')
 
 for i in range(40):
+	print('Data Chunk {}/40'.format(i+1))
 	Z[:, i*50000 : (i+1)*50000] = fast_ista(X[:, i*50000 : (i+1)*50000], Wd, alpha)
 
 print('Labels Created')
