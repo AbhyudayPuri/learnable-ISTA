@@ -23,10 +23,7 @@ X = create_patches(path, lines, num_patches)
 # Save the data patches
 np.save('/home/ecbm6040/learnable-ISTA/X_train.npy', X)
 
-# Create the sparse code
-Z[0:50000] = fast_ista(X[0:50000], Wd, alpha)
-Z[50000:100000] = fast_ista(X[50000:100000], Wd, alpha)
-Z[100000:150000] = fast_ista(X[100000:150000], Wd, alpha)
-Z[150000:200000] = fast_ista(X[150000:200000], Wd, alpha)
+for i in range(8):
+	Z[i*25000 : (i+1)*25000] = fast_ista([i*25000 : (i+1)*25000], Wd, alpha)
 
 np.save('/home/ecbm6040/learnable-ISTA/Z_train.npy', Z)
