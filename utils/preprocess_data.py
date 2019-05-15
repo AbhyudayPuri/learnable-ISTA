@@ -20,11 +20,13 @@ Wd = np.load('/home/ecbm6040/learnable-ISTA/Wd.npy')
 # Create the patches
 X = create_patches(path, lines, num_patches)
 
+Z = np.zeros(X.shape)
+
 print('Data Created')
 
-for i in range(40):
+for i in range(20):
 	print('Data Chunk {}/40'.format(i+1))
-	Z[:, i*50000 : (i+1)*50000] = fast_ista(X[:, i*50000 : (i+1)*50000], Wd, alpha)
+	Z[:, i*100000 : (i+1)*100000] = fast_ista(X[:, i*100000 : (i+1)*100000], Wd, alpha)
 
 print('Labels Created')
 
