@@ -15,7 +15,7 @@ num_patches = 10000
 alpha = 0.1
 
 # Read the dictionary
-Wd = np.load('Wd.npy')
+Wd = np.load('/home/ecbm6040/learnable-ISTA/Wd.npy')
 
 # Create the patches
 X = create_patches(path, lines, num_patches)
