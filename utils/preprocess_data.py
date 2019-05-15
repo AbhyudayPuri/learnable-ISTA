@@ -20,11 +20,14 @@ Wd = np.load('/home/ecbm6040/learnable-ISTA/Wd.npy')
 # Create the patches
 X = create_patches(path, lines, num_patches)
 
-# Save the data patches
-np.save('/home/ecbm6040/learnable-ISTA/X_train.npy', X)
+print('Data Created')
 
 for i in range(8):
 	Z[i*2000 : (i+1)*2000] = fast_ista(X[i*2000 : (i+1)*2000], Wd, alpha)
 	break
 
+print('Labels Created')
+
+# Save the data
+np.save('/home/ecbm6040/learnable-ISTA/X_train.npy', X)
 np.save('/home/ecbm6040/learnable-ISTA/Z_train.npy', Z)
