@@ -106,6 +106,7 @@ for epoch in range(num_epochs):
 		if i % 100 == 0 and i != 0:    # print every 10 mini-batches
 			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i, running_loss / 100))
 			training_loss.append(running_loss)
+			running_loss = 0.0
 
 	# Ensuring that the model is in the training mode
 	net.eval()
