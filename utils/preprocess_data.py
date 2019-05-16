@@ -6,12 +6,11 @@ import time
 # Set the hyper-parameters
 alpha = 0.1
 
+# Read the input data
+X = np.load('/home/ecbm6040/learnable-ISTA/X_train.npy')
+X = X[:,0:800000]
 # Read the dictionary
 Wd = np.load('/home/ecbm6040/learnable-ISTA/Wd.npy')
-
-# Create the patches
-X = create_patches(path, lines, num_patches)
-np.save('/home/ecbm6040/learnable-ISTA/X1_train.npy', X)
 
 
 Z = np.zeros((400, X.shape[1]))
@@ -19,9 +18,9 @@ print(Z.shape)
 
 print('Data Created')
 
-for i in range(200):
+for i in range(80):
 	start = time.time()
-	print('Data Chunk {}/200'.format(i+1))
+	print('Data Chunk {}/80'.format(i+1))
 	Z[:, i*10000 : (i+1)*10000] = fast_ista(X[:, i*10000 : (i+1)*10000], Wd, alpha)
 	end = time.time()
 	np.save('/home/ecbm6040/learnable-ISTA/Z1_train.npy', Z)
