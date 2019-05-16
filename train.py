@@ -23,7 +23,7 @@ criterion = nn.MSELoss()    # This is the l2 Loss Function
 
 # Choosing the optimizer and its hyper-parameters
 optimizer = optim.Adam(net.parameters(), lr=1e-2, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
-scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.1)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=4, gamma=0.1)
 
 # Hyper-Parameters
 num_epochs = 200
