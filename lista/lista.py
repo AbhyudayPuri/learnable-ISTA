@@ -17,11 +17,13 @@ class lista(nn.Module):
 
 		self.W = torch.nn.Parameter(torch.randn((self.m, self.n), requires_grad=True))
 		self.S = torch.nn.Parameter(torch.randn((self.m, self.m), requires_grad=True))
-		self.soft_thresh = nn.Softshrink(lambd=0.1)
+		# self.soft_thresh = nn.Softshrink(lambd=1)
 
 
 
 	def forward(self, x):
+
+		self.soft_thresh = nn.Softshrink(lambd= (0.01 / np.linalg.norm(self.W.numpy(), 2)**2))
 
 		# Initializing variables
 		B = torch.matmul(self.W, x)

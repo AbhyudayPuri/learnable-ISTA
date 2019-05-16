@@ -88,9 +88,6 @@ for epoch in range(num_epochs):
 		X_batch = X_batch.to(device)
 		Z_batch = Z_batch.to(device)
 
-		print(X_batch)
-		break
-
 		# Forward Pass
 		prediction = net(X_batch)
 
