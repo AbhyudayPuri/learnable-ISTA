@@ -90,6 +90,7 @@ for epoch in range(num_epochs):
 
 		# Forward Pass
 		prediction = net(X_batch)
+		print(prediction)
 
 		# Computng the loss
 		loss = criterion(prediction, Z_batch)
