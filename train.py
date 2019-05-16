@@ -3,9 +3,7 @@ import torch.nn as nn
 import torch.optim as optim
 import numpy as np 
 import torchvision
-from utils.create_patches import create_patches
 from lista.lista import lista
-from utils.fast_ista import fast_ista
 
 # Creating the network
 net = lista()
@@ -27,70 +25,84 @@ criterion = nn.MSELoss()    # This is the l2 Loss Function
 optimizer = optim.Adam(net.parameters(), lr=1e-3, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
 
 # Hyper-Parameters
-num_epochs = 1000
-num_patches = 10
-alpha = 0.01
+num_epochs = 200
+batch_size = 2000
 
 # Stores the loss through out the entire training
 training_loss = []
 
-path = './data/train/'
+X = np.load('/home/ecbm6040/learnable-ISTA/data_lista/X_train.npy')
+Z = np.load('/home/ecbm6040/learnable-ISTA/data_lista/Z_train.npy')
 
-# Reading the text file that contains names of all the images
-fp = open('./data/iids_train.txt')
-lines = fp.read().splitlines() # Create a list containing all lines
-fp.close()
+print('Data has been loaded')
+print('--------------------------------------------------------------')
 
-# Loading the dictionary 
-Wd = np.load('./Wd.npy')
+# Divide data into train, val, and test
+X_train = X[:, 0:1500000]
+Z_train = Z[:, 0:1500000]
+print('Train set created')
+
+X_val = X[:,1500000:1750000]
+Z_val = Z[:,1500000:1750000]
+print('Val set created')
+
+X_test = X[:, 1750000:2000000]
+Z_test = Z[:, 1750000:2000000]
+print('Test set created')
+print('--------------------------------------------------------------')
+
+num_iter = X_train.shape[1] / batch_size
+
+print('Begin Training')
 
 for epoch in range(num_epochs):
-
-	# Zero the parameter gradients
-	optimizer.zero_grad()
 
 	# Stores the loss for an entire mini-batch
 	running_loss = 0.0
 
+	# Shuffling the data before each epoch
+	permutation = np.random.permutation(X.shape[1])
+	X_shuffle = X_train[:, permutation]
+	Z_shuffle = Z_train[:, permutation]
+
 	# Generate the mini-batch
-	X = create_patches(path, lines, num_patches)
+	for i in range(num_iter):
+		# Zero the parameter gradients
+		optimizer.zero_grad()
+		
+		X_batch = torch.from_numpy(X_train[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+		Z_batch = torch.from_numpy(Z_train[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
 
-	# Generate the ground truth for these patches
-	Z = fast_ista(X, Wd, alpha)
+		# Pushing onto GPU
+		X = X.to(device)
+		Z = Z.to(device)
 
-	X = torch.from_numpy(X).type(torch.FloatTensor)
-	Z = torch.from_numpy(Z).type(torch.FloatTensor)
+		# Forward Pass
+		prediction = net(X)
 
-	# Pushing onto GPU
-	X = X.to(device)
-	Z = Z.to(device)
+		# Computng the loss
+		loss = criterion(prediction, Z)
+		# loss = (prediction - Z).pow(2).sum()
 
-	# Forward Pass
-	prediction = net(X)
+		# Back Propogation    
+		loss.backward()
+		
+		# Updating the network parameters
+		optimizer.step()
 
-	# Computng the loss
-	loss = criterion(prediction, Z)
-	# loss = (prediction - Z).pow(2).sum()
+		# Print Loss
+		running_loss += loss.item()
 
-	# Back Propogation    
-	loss.backward()
-	
-	# Updating the network parameters
-	optimizer.step()
+		if i % 10 == 0 and epoch != 0:    # print every 20 mini-batches
+			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i, running_loss / 10))
+			training_loss.append(running_loss)
 
 	print('Epoch {} Done'.format(epoch))
 
-	# Print Loss
-	running_loss += loss.item()
-
-	if epoch % 10 == 0 and epoch != 0:    # print every 20 mini-batches
-		print('epoch: {}, loss: {}'.format(epoch, running_loss))
-		training_loss.append(running_loss)
-
 	# Saving the model
-	torch.save(net, './pretrained_models/Network_1.pth')
+	torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
 
-loss_file = open('./pretrained_models/loss.txt', '+w') # open a file in write mode
+loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/loss.txt', '+w') # open a file in write mode
 for item in training_loss:    # iterate over the list items
    loss_file.write(str(item) + '\n') # write to the file
 loss_file.close()   # close the file 
