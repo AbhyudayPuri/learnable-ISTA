@@ -93,7 +93,7 @@ for epoch in range(num_epochs):
 		# Print Loss
 		running_loss += loss.item()
 
-		if i % 10 == 0 and epoch != 0:    # print every 20 mini-batches
+		if i % 10 == 0 and i != 0:    # print every 10 mini-batches
 			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i, running_loss / 10))
 			training_loss.append(running_loss)
 
