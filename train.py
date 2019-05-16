@@ -104,7 +104,7 @@ for epoch in range(num_epochs):
 		running_loss += loss.item()
 
 		if (i+1) % 50 == 0:    # print every 10 mini-batches
-			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i, running_loss / 50))
+			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i+1, running_loss / 50))
 			training_loss.append(running_loss)
 			running_loss = 0.0
 
