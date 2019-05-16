@@ -99,7 +99,7 @@ for epoch in range(num_epochs):
 		# Print Loss
 		running_loss += loss.item()
 
-		if i % 10 == 0 and i != 0:    # print every 10 mini-batches
+		if i % 100 == 0 and i != 0:    # print every 10 mini-batches
 			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i, running_loss / 10))
 			training_loss.append(running_loss)
 
@@ -107,14 +107,14 @@ for epoch in range(num_epochs):
 	net.eval()
 
 	for j in range(125):
-		X_batch = torch.from_numpy(X_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
-		Z_batch = torch.from_numpy(Z_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+		X_batch_val = torch.from_numpy(X_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+		Z_batch_val = torch.from_numpy(Z_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
 
 		# Forward Pass
-		prediction = net(X_batch)
+		prediction = net(X_batch_val)
 
 		# Computng the loss
-		loss = criterion(prediction, Z_batch)
+		loss = criterion(prediction, Z_batch_val)
 
 		val_loss += loss.item()
 
