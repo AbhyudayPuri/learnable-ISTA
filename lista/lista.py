@@ -15,8 +15,10 @@ class lista(nn.Module):
 		self.n = 100
 		self.m = 400
 
-		self.W = torch.nn.Parameter(torch.randn((self.m, self.n), requires_grad=True))
-		self.S = torch.nn.Parameter(torch.randn((self.m, self.m), requires_grad=True))
+		# self.W = torch.nn.Parameter(torch.randn((self.m, self.n), requires_grad=True))
+		self.W = torch.nn.Parameter(torch.from_numpy(np.random.normal(0, 1/n, (n, m))), requires_grad=True)
+		self.S = torch.nn.Parameter(torch.from_numpy(np.random.normal(0, 1/m, (m, m))), requires_grad=True)
+		# self.S = torch.nn.Parameter(torch.randn((self.m, self.m), requires_grad=True))
 		self.soft_thresh = nn.Softshrink(lambd=0.1)
 
 
