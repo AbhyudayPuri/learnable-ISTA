@@ -24,6 +24,7 @@ class lista(nn.Module):
 	def forward(self, x):
 
 		self.soft_thresh = nn.Softshrink(lambd= (0.01 / np.linalg.norm(self.W.cpu().data.numpy(), 2)**2))
+		print(0.01 / np.linalg.norm(self.W.cpu().data.numpy(), 2)**2)
 
 		# Initializing variables
 		B = torch.matmul(self.W, x)
