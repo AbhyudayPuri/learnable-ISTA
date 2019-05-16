@@ -22,7 +22,8 @@ net.train()
 criterion = nn.MSELoss()    # This is the l2 Loss Function
 
 # Choosing the optimizer and its hyper-parameters
-optimizer = optim.Adam(net.parameters(), lr=1e-3, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
+optimizer = optim.Adam(net.parameters(), lr=1e-4, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.1)
 
 # Hyper-Parameters
 num_epochs = 200
@@ -57,6 +58,9 @@ num_iter = X_train.shape[1] // batch_size
 print('Begin Training')
 
 for epoch in range(num_epochs):
+	
+	scheduler.step()
+
 	# Ensuring that the model is in the training mode
 	net.train()
 
@@ -107,8 +111,8 @@ for epoch in range(num_epochs):
 	net.eval()
 
 	for j in range(125):
-		X_batch_val = torch.from_numpy(X_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
-		Z_batch_val = torch.from_numpy(Z_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+		X_batch_val = torch.from_numpy(X_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
+		Z_batch_val = torch.from_numpy(Z_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
 
 		# Forward Pass
 		prediction = net(X_batch_val)
