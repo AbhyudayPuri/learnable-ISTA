@@ -30,6 +30,7 @@ batch_size = 2000
 
 # Stores the loss through out the entire training
 training_loss = []
+validation_loss = []
 
 X = np.load('/home/ecbm6040/learnable-ISTA/data_lista/X_train.npy')
 Z = np.load('/home/ecbm6040/learnable-ISTA/data_lista/Z_train.npy')
@@ -56,9 +57,14 @@ num_iter = X_train.shape[1] // batch_size
 print('Begin Training')
 
 for epoch in range(num_epochs):
+	# Ensuring that the model is in the training mode
+	net.train()
 
 	# Stores the loss for an entire mini-batch
 	running_loss = 0.0
+
+	# Stores the validation loss
+	val_loss = 0.0
 
 	# Shuffling the data before each epoch
 	permutation = np.random.permutation(X_train.shape[1])
@@ -97,17 +103,37 @@ for epoch in range(num_epochs):
 			print('epoch: {}, iteration: {}, loss: {}'.format(epoch, i, running_loss / 10))
 			training_loss.append(running_loss)
 
-	print('Epoch {} Done'.format(epoch))
+	# Ensuring that the model is in the training mode
+	net.eval()
+
+	for j in range(125):
+		X_batch = torch.from_numpy(X_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+		Z_batch = torch.from_numpy(Z_val[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+
+		# Forward Pass
+		prediction = net(X_batch)
+
+		# Computng the loss
+		loss = criterion(prediction, Z_batch)
+
+		val_loss += loss.item()
+
+	validation_loss.append(val_loss)
+
+	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss))
 
 	# Saving the model
 	torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
 
-loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/loss.txt', '+w') # open a file in write mode
+loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/train_loss.txt', '+w') # open a file in write mode
 for item in training_loss:    # iterate over the list items
    loss_file.write(str(item) + '\n') # write to the file
 loss_file.close()   # close the file 
 
-
+loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/val_loss.txt', '+w') # open a file in write mode
+for item in validation_loss:    # iterate over the list items
+   loss_file.write(str(item) + '\n') # write to the file
+loss_file.close()   # close the file 
 
 
 
