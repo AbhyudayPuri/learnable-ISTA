@@ -131,7 +131,7 @@ for epoch in range(num_epochs):
 
 	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss / 50))
 
-	if epoch % 10 == 0:
+	if (epoch + 1) % 10 == 0:
 		# Saving the model
 		torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
 
