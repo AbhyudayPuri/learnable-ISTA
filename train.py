@@ -56,6 +56,7 @@ print('--------------------------------------------------------------')
 num_iter = X_train.shape[1] // batch_size
 
 print('Begin Training')
+print('--------------------------------------------------------------')
 
 for epoch in range(num_epochs):
 	
@@ -128,8 +129,10 @@ for epoch in range(num_epochs):
 		val_loss += loss.item()
 
 	validation_loss.append(val_loss)
-
+	
+	print('--------------------------------------------------------------')
 	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss / 50))
+	print('--------------------------------------------------------------')
 
 	if (epoch + 1) % 10 == 0:
 		# Saving the model
