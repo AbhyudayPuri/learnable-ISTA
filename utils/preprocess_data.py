@@ -28,7 +28,7 @@ print('Data Created')
 
 for i in range(200):
 	start = time.time()
-	print('Data Chunk {}/400'.format(i+1))
+	print('Data Chunk {}/200'.format(i+1))
 	Z[:, i*10000 : (i+1)*10000] = fast_ista(X[:, i*10000 : (i+1)*10000], Wd, alpha)
 	end = time.time()
 	np.save('/home/ecbm6040/learnable-ISTA/Z_train.npy', Z)
