@@ -51,7 +51,7 @@ Z_test = Z[:, 1750000:2000000]
 print('Test set created')
 print('--------------------------------------------------------------')
 
-num_iter = X_train.shape[1] / batch_size
+num_iter = X_train.shape[1] // batch_size
 
 print('Begin Training')
 
