@@ -61,7 +61,7 @@ for epoch in range(num_epochs):
 	running_loss = 0.0
 
 	# Shuffling the data before each epoch
-	permutation = np.random.permutation(X.shape[1])
+	permutation = np.random.permutation(X_train.shape[1])
 	X_shuffle = X_train[:, permutation]
 	Z_shuffle = Z_train[:, permutation]
 
