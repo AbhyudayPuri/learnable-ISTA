@@ -74,14 +74,14 @@ for epoch in range(num_epochs):
 		Z_batch = torch.from_numpy(Z_train[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
 
 		# Pushing onto GPU
-		X = X.to(device)
-		Z = Z.to(device)
+		X_batch = X_batch.to(device)
+		Z_batch = Z_batch.to(device)
 
 		# Forward Pass
-		prediction = net(X)
+		prediction = net(X_batch)
 
 		# Computng the loss
-		loss = criterion(prediction, Z)
+		loss = criterion(prediction, Z_batch)
 		# loss = (prediction - Z).pow(2).sum()
 
 		# Back Propogation    
