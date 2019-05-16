@@ -81,8 +81,8 @@ for epoch in range(num_epochs):
 		# Zero the parameter gradients
 		optimizer.zero_grad()
 		
-		X_batch = torch.from_numpy(X_train[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
-		Z_batch = torch.from_numpy(Z_train[:,i*batch_size : (i+1)*batch_size]).type(torch.FloatTensor)
+		X_batch = torch.from_numpy(X_train[:,i*batch_size : (i+1)*batch_size]).type(torch.DoubleTensor)
+		Z_batch = torch.from_numpy(Z_train[:,i*batch_size : (i+1)*batch_size]).type(torch.DoubleTensor)
 
 		# Pushing onto GPU
 		X_batch = X_batch.to(device)
@@ -114,8 +114,8 @@ for epoch in range(num_epochs):
 	net.eval()
 
 	for j in range(50):
-		X_batch_val = torch.from_numpy(X_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
-		Z_batch_val = torch.from_numpy(Z_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
+		X_batch_val = torch.from_numpy(X_val[:, j*batch_size : (j+1)*batch_size]).type(torch.DoubleTensor)
+		Z_batch_val = torch.from_numpy(Z_val[:, j*batch_size : (j+1)*batch_size]).type(torch.DoubleTensor)
 
 		# Pushing onto GPU
 		X_batch_val = X_batch_val.to(device)
