@@ -27,7 +27,7 @@ scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=2, gamma=0.1)
 
 # Hyper-Parameters
 num_epochs = 200
-batch_size = 2000
+batch_size = 5000
 
 # Stores the loss through out the entire training
 training_loss = []
@@ -111,7 +111,7 @@ for epoch in range(num_epochs):
 	# Ensuring that the model is in the training mode
 	net.eval()
 
-	for j in range(125):
+	for j in range(50):
 		X_batch_val = torch.from_numpy(X_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
 		Z_batch_val = torch.from_numpy(Z_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
 
