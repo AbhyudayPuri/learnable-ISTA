@@ -114,6 +114,10 @@ for epoch in range(num_epochs):
 		X_batch_val = torch.from_numpy(X_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
 		Z_batch_val = torch.from_numpy(Z_val[:, j*batch_size : (j+1)*batch_size]).type(torch.FloatTensor)
 
+		# Pushing onto GPU
+		X_batch_val = X_batch_val.to(device)
+		Z_batch_val = Z_batch_val.to(device)
+		
 		# Forward Pass
 		prediction = net(X_batch_val)
 
