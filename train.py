@@ -91,6 +91,9 @@ for epoch in range(num_epochs):
 		# Forward Pass
 		prediction = net(X_batch)
 
+		print(Z_batch)
+		print(prediction)
+
 		# Computng the loss
 		loss = criterion(prediction, Z_batch)
 		# loss = (prediction - Z).pow(2).sum()
@@ -129,7 +132,7 @@ for epoch in range(num_epochs):
 		val_loss += loss.item()
 
 	validation_loss.append(val_loss)
-	
+
 	print('--------------------------------------------------------------')
 	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss / 50))
 	print('--------------------------------------------------------------')
