@@ -131,8 +131,9 @@ for epoch in range(num_epochs):
 
 	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss / 50))
 
-	# Saving the model
-	torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
+	if epoch % 10 == 0:
+		# Saving the model
+		torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
 
 loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/train_loss.txt', '+w') # open a file in write mode
 for item in training_loss:    # iterate over the list items
