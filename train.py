@@ -129,7 +129,7 @@ for epoch in range(num_epochs):
 
 	validation_loss.append(val_loss)
 
-	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss / (X_val.shape[0] * X_val.shape[1])))
+	print('Epoch: {}, Validation Loss: {}'.format(epoch, val_loss / 50))
 
 	# Saving the model
 	torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
