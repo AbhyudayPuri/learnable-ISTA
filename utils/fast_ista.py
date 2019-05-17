@@ -1,5 +1,5 @@
 import numpy as np 
-from shrinkage import shrink
+from utils.shrinkage import shrink
 
 def fast_ista(X, A, alpha=0.01):
 
@@ -16,6 +16,7 @@ def fast_ista(X, A, alpha=0.01):
 	Z_prev = Z
 
 	# FISTA
+	print('Begin Iterative Procedure')
 	for i in range(max_iter):
 		Z_aux = Z + (i / (i + 3)) * (Z - Z_prev)
 		Z_prev = Z 
@@ -24,7 +25,8 @@ def fast_ista(X, A, alpha=0.01):
 		theta = alpha / (np.linalg.norm(A, 2) ** 2)
 
 		Z = shrink(Z, theta)
-		if i%100 == 0:
-			print(i)
+		# if i%100 == 0:
+		# 	print(i)
+	print('Algorithm Complete')
 
 	return Z
