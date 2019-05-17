@@ -7,6 +7,12 @@ This is an implementation of the Learnable Iterative Shrinkage and Thresholding 
 ```bash
 python main.py
 ```
+Before training the encoder network, you must create and organize the data for the same. To do so, run the following commands:
+```bash
+cd utils 
+python create_train_data.py
+python preprocess_data.py 
+```
 
 ## To train the encoder network
 ```bash
