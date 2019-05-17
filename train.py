@@ -23,7 +23,7 @@ criterion = nn.MSELoss()    # This is the l2 Loss Function
 
 # Choosing the optimizer and its hyper-parameters
 optimizer = optim.Adam(net.parameters(), lr=1e-2, betas=(0.9, 0.999), eps=1e-08)    # Adaptive Momentum Optimizer
-scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.1)
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=50, gamma=0.1)
 
 # Hyper-Parameters
 num_epochs = 200
@@ -136,14 +136,14 @@ for epoch in range(num_epochs):
 
 	if (epoch + 1) % 10 == 0:
 		# Saving the model
-		torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_1.pth')
+		torch.save(net, '/home/ecbm6040/learnable-ISTA/pretrained_models/Network_2.pth')
 
-loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/train_loss.txt', '+w') # open a file in write mode
+loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/train_loss_2.txt', '+w') # open a file in write mode
 for item in training_loss:    # iterate over the list items
    loss_file.write(str(item) + '\n') # write to the file
 loss_file.close()   # close the file 
 
-loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/val_loss.txt', '+w') # open a file in write mode
+loss_file = open('/home/ecbm6040/learnable-ISTA/pretrained_models/val_loss_2.txt', '+w') # open a file in write mode
 for item in validation_loss:    # iterate over the list items
    loss_file.write(str(item) + '\n') # write to the file
 loss_file.close()   # close the file 
