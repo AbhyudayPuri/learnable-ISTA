@@ -13,4 +13,4 @@ python main.py
 python train.py
 ```
 
-Incase you face any errors in running the above two commands, just check for the paths, as absolute paths have been given, instead of relative. So this might change depedning on your system, or file organization. 
+Incase you face any errors in running the above two commands, just check for the paths, as absolute paths have been given, instead of relative. So this might change depending on your system, or file organization. 
